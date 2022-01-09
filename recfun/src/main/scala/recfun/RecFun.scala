@@ -15,14 +15,12 @@ object RecFun extends RecFunInterface {
    * Exercise 1
    */
   def pascal(c: Int, r: Int): Int = {
-     def factorial(n : Int): Int = {
-       def loop(acc:Int, n: Int ): Int =
-         if (n==0) acc
-         else loop(acc * n, n-1)
-       loop(1, n)
-     }
-       factorial(r)/( factorial(c) * factorial(r-c) )
+    c match {
+      case 0 => 1
+      case _ if (c == r) => 1
+      case _ => pascal(c - 1, r - 1) + pascal(c, r - 1)
     }
+  }
 
   /**
    * Exercise 2
