@@ -9,6 +9,7 @@ object RecFun extends RecFunInterface {
         print(s"${pascal(col, row)} ")
       println() 
     }
+    println(balance(List(':', '-', ')')))
   }
 
   /**
@@ -26,24 +27,23 @@ object RecFun extends RecFunInterface {
    * Exercise 2
    */
   def balance(chars: List[Char]): Boolean = {
-
-    var nums = 0
-      def or(as: List[Char]) : Int = {
-        if (as.head == '(') 1
-        else if (as.head == ')') -1
-        else 0
+    def f(chars: List[Char], nums: Int): Boolean = {
+      chars.isEmpty match {
+        case true => nums == 0
+        case _ => {
+          val n = chars.head match {
+            case '(' => nums + 1
+            case ')' => nums - 1
+            case _ => nums
+          }
+          if (n >= 0) f(chars.tail, n)
+          else false
+        }
       }
-      def divide(chars: List[Char]): Unit = {
-        if (chars.isEmpty) 0
-        else nums += or(chars.tail)
-      }
-
-    divide(chars: List[Char])
-    if (nums == 0) true
-    else false
-
-
+    }
+    f(chars, 0)
   }
+
 
   /**
    * Exercise 3
